@@ -16,6 +16,11 @@ namespace TakeGYM.Models.TrainingSheet
 
         public virtual Teacher.Teacher Personal { get; set; }
 
+        public virtual Student.Student Student { get; set; }
+
+        [ForeignKey("StudentID")]
+        public long StudentID { get; set; }
+
         [ForeignKey("PersonalID")]
         public long PersonalID { get; set; }
         public DateTime StartDate { get; set; }

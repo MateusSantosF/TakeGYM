@@ -52,5 +52,9 @@ namespace TakeGYM.Services.Repository
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<T> Find(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().SingleOrDefaultAsync(predicate);
+        }
     }
 }

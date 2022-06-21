@@ -48,7 +48,6 @@ namespace TakeGYM.Controllers
         /// <summary>
         ///  Add students in database
         /// </summary>
-
         [HttpPost("insert")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -66,7 +65,6 @@ namespace TakeGYM.Controllers
         /// <summary>
         ///  Remove students in database
         /// </summary>
-
         [HttpPost("delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -84,6 +82,7 @@ namespace TakeGYM.Controllers
         /// Verify if student has trainingsheet by phone
         /// </summary>
         [HttpGet("trainingsheet")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> VerifyHasTrainsheetAsync(string phone)
         {
 
@@ -94,6 +93,7 @@ namespace TakeGYM.Controllers
         /// Verify if student has personal by phone
         /// </summary>
         [HttpGet("personal")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> VerifyHasPersonalAsync(string phone)
         {
             return Ok(await _studentFacade.VerifyHasPersonalAsync(phone));

@@ -15,7 +15,7 @@ namespace TakeGYM.Facades
 
         public Task<bool> UpdateAsync(Student student);
 
-        public Task<string> VerifyHasPersonalAsync(string phone);
+        public Task<bool> VerifyHasPersonalAsync(string phone);
 
         public Task<string> VerifyHasTrainingsheetAsync(string phone);
 

@@ -12,6 +12,7 @@ namespace TakeGYM.Services.Repository.interfaces
 
         Task<List<T>> FindBy(Expression<Func<T, bool>> predicate);
 
+        Task<T> Find(Expression<Func<T, bool>> predicate);
 
         Task<bool> InsertAsync(T model);
 

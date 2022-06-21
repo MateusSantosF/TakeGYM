@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TakeGYM.Services.AppDbContext;
 
 namespace TakeGYM.Migrations
 {
     [DbContext(typeof(TakeGYMContext))]
-    partial class TakeGYMContextModelSnapshot : ModelSnapshot
+    [Migration("20220621190121_AddColumnsTrainingsheet")]
+    partial class AddColumnsTrainingsheet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

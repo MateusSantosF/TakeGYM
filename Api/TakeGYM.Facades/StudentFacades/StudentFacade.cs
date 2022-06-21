@@ -5,17 +5,21 @@ using System.Threading.Tasks;
 
 
 using TakeGYM.Models.Student;
+using TakeGYM.Models.TrainingSheet;
 using TakeGYM.Services.Repository.interfaces;
+using Newtonsoft.Json;
 
 namespace TakeGYM.Facades
 {
     public class StudentFacade :IStudentFacade{
 
         private readonly IGenericRepository<Student> _studentRepository;
+        private readonly IGenericRepository<TrainingSheet> _trainingsheetRepository;
 
-        public StudentFacade(IGenericRepository<Student> studentRepository)
+        public StudentFacade(IGenericRepository<Student> studentRepository, IGenericRepository<TrainingSheet> trainingsheetRepository)
         {
             _studentRepository = studentRepository;
+            _trainingsheetRepository = trainingsheetRepository;
         }
 
         public async Task<bool> DeleteAsync(Student student)
@@ -38,14 +42,24 @@ namespace TakeGYM.Facades
             return await _studentRepository.UpdateAsync(student);
         }
 
-        public Task<string> VerifyHasPersonalAsync(string phone)
+        public async Task<bool> VerifyHasPersonalAsync(string phone)
         {
-            throw new NotImplementedException();
+            var student = await _studentRepository.Find(s => s.Phone.Equals(phone));
+
+            if(student is null)
+            {
+                return false;
+            }
+
+            return student.HasPersonal;
         }
 
-        public Task<string> VerifyHasTrainingsheetAsync(string phone)
+        public async Task<string> VerifyHasTrainingsheetAsync(string phone)
         {
-            throw new NotImplementedException();
+            var student = await _studentRepository.Find(s => s.Phone.Equals(phone));
+            var trainingSheet = await _trainingsheetRepository.Find(t => t.StudentID.Equals(student.StudentID));
+
+            return JsonConvert.SerializeObject(trainingSheet, Formatting.Indented);
         }
     }
 }
