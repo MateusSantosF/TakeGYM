@@ -14,11 +14,10 @@ namespace TakeGYM.Models.Student
         [Key]
         public long StudentID { get; set; }
 
-        [Required]
         public string FirstName { get; set; }
-
-        [Required]
         public string LastName { get; set; }
+
+        public string Phone { get; set; }
 
         [MaxLength(14, ErrorMessage = "CPF LENGTH OUT OF BOUNDS")]
         public string CPF { get; set; }
@@ -33,13 +32,12 @@ namespace TakeGYM.Models.Student
         public string City { get; set; }
 
         [MinLength(8, ErrorMessage = "Very small Password")]
-        [Required]
         public string Password { get; set; }
 
         [ForeignKey("TeacherID")]
         public long? TeacherID { get; set; }
 
-        public virtual Teacher.Teacher? Teacher { get; set; }
+        public virtual Teacher.Teacher Teacher { get; set; }
 
         public bool HasPersonal { get; set; }
     }

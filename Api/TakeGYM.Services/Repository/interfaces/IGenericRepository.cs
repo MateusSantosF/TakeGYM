@@ -13,10 +13,10 @@ namespace TakeGYM.Services.Repository.interfaces
         Task<List<T>> FindBy(Expression<Func<T, bool>> predicate);
 
 
-        Task InsertAsync(T model);
+        Task<bool> InsertAsync(T model);
 
-        Task UpdateAsync(T model);
+        Task<bool> UpdateAsync(T model);
 
-        Task DeleteAsync(T model);
+        Task<bool> DeleteAsync(T model);
     }
 }

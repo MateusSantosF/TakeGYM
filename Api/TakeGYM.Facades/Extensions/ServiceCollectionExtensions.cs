@@ -13,9 +13,10 @@ using RestEase;
 
 using Serilog;
 using Serilog.Exceptions;
-using TakeGYM.Facades.PersonalFacades;
+
 using TakeGYM.Services.Repository;
 using TakeGYM.Services.Repository.interfaces;
+using TakeGYM.Facades;
 
 namespace TakeGYM.Facades.Extensions
 {
@@ -39,7 +40,9 @@ namespace TakeGYM.Facades.Extensions
                     .AddSingleton(settings.BlipBotSettings);
 
             // MY INTERFACES
-            services.AddScoped<IPersonalFacade, PersonalFacade>();
+            services.AddScoped<ITeacherFacade, TeacherFacade>();
+            services.AddScoped<IUserFacade, UserFacade>();
+            services.AddScoped<IStudentFacade, StudentFacade>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             // =========================

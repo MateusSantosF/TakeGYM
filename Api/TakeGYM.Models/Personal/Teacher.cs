@@ -14,20 +14,19 @@ namespace TakeGYM.Models.Teacher
         [Key]
         public long TeacherID { get; set; }
 
-        [Required]
         public string FirstName { get; set; }
 
-        [Required]
         public string LastName { get; set; }
 
-        [Required]
+        public string Phone { get; set; }
+
         public bool IsPersonal { get; set; }
 
         [MinLength(14, ErrorMessage = "CPF LENGTH OUT OF BOUNDS")]
         [MaxLength(14, ErrorMessage = "CPF LENGTH OUT OF BOUNDS")]
         public string CPF { get; set; }
 
-        public virtual  List<Student.Student>? Students { get; set; }
+        public virtual  List<Student.Student> Students { get; set; }
       
         public List<WorkSchedule> WorkSchedules { get; set; }
 

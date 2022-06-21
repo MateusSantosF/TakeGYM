@@ -21,32 +21,36 @@ namespace TakeGYM.Services.Repository
             _context = context;
         }
 
-        public async Task DeleteAsync(T model)
-        {
-            _context.Set<T>().Remove(model);
-           await _context.SaveChangesAsync(); 
-        }
+
 
         public async Task<List<T>> FindBy(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().Where(predicate).ToListAsync();
         }
 
-        public async Task InsertAsync(T model)
-        {
-            _context.Set<T>().Add(model);
-            await _context.SaveChangesAsync();
-        }
+     
 
         public async Task<List<T>> ListAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task UpdateAsync(T model)
+        public async Task<bool> InsertAsync(T model)
+        {
+            _context.Set<T>().Add(model);
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> DeleteAsync(T model)
+        {
+            _context.Set<T>().Remove(model);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> UpdateAsync(T model)
         {
             _context.Update(model);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
+
     }
 }

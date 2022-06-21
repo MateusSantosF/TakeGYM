@@ -45,6 +45,9 @@ namespace TakeGYM.Services.AppDbContext
                     .HasMany(s => s.Students)
                     .WithOne(s => s.Teacher).OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Student>().HasIndex(s => s.Phone).IsUnique();
+            modelBuilder.Entity<Teacher>().HasIndex(t => t.Phone).IsUnique();
+
 
             modelBuilder.Entity<Teacher>()
                 .HasMany<PersonalAlert>( t => t.Alerts)
