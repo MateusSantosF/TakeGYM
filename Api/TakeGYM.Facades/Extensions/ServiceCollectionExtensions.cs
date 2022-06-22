@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using RestEase;
+using Serilog;
+using Serilog.Exceptions;
+using TakeGYM.Facades.interfaces;
 using TakeGYM.Facades.Strategies.ExceptionHandlingStrategies;
 using TakeGYM.Models;
 using TakeGYM.Models.UI;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-using RestEase;
-
-using Serilog;
-using Serilog.Exceptions;
-
 using TakeGYM.Services.Repository;
 using TakeGYM.Services.Repository.interfaces;
-using TakeGYM.Facades;
 
 namespace TakeGYM.Facades.Extensions
 {
@@ -43,6 +38,7 @@ namespace TakeGYM.Facades.Extensions
             services.AddScoped<ITeacherFacade, TeacherFacade>();
             services.AddScoped<IUserFacade, UserFacade>();
             services.AddScoped<IStudentFacade, StudentFacade>();
+            services.AddScoped<ITrainingsheetFacade, TrainingsheetFacade>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             // =========================

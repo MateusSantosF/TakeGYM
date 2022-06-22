@@ -65,8 +65,6 @@ namespace TakeGYM.Controllers
         /// <summary>
         ///  Remove Teacher in database
         /// </summary>
-        /// <param name="teacher"></param>
-        /// <returns></returns>
         [HttpPost("delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

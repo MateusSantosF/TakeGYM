@@ -7,6 +7,7 @@ namespace TakeGYM.Facades
 {
     public interface IStudentFacade
     {
+        Task<Student> GetStudentByPhoneAsync(string phone);
         public Task<List<Student>> ListAllAsync();
 
         public Task<bool> InsertAsync(Student student);

@@ -27,9 +27,15 @@ namespace TakeGYM.Facades
             return await _studentRepository.DeleteAsync(student);
         }
 
+
         public async Task<bool> InsertAsync(Student student)
         {
             return await _studentRepository.InsertAsync(student);
+        }
+
+        public async Task<Student> GetStudentByPhoneAsync(string phone)
+        {
+            return await _studentRepository.Find(s => s.Phone.Equals(phone));
         }
 
         public async Task<List<Student>> ListAllAsync()

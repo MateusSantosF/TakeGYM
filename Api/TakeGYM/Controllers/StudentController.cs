@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using TakeGYM.Facades;
+using TakeGYM.Facades.interfaces;
 using TakeGYM.Models.Student;
 
 
@@ -19,13 +18,15 @@ namespace TakeGYM.Controllers
     {
 
         private readonly IStudentFacade _studentFacade;
+        private readonly ITrainingsheetFacade _trainingsheetFacade;
 
         /// <summary>
         ///  Construct Method
         /// </summary>
-        public StudentController(IStudentFacade studentFacade)
+        public StudentController(IStudentFacade studentFacade, ITrainingsheetFacade trainingsheetFacade)
         {
             _studentFacade = studentFacade;
+            _trainingsheetFacade = trainingsheetFacade;
         }
 
         /// <summary>
@@ -85,7 +86,6 @@ namespace TakeGYM.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> VerifyHasTrainsheetAsync(string phone)
         {
-
             return Ok(await _studentFacade.VerifyHasTrainingsheetAsync(phone));
         }
 
@@ -99,6 +99,15 @@ namespace TakeGYM.Controllers
             return Ok(await _studentFacade.VerifyHasPersonalAsync(phone));
         }
 
+        /// <summary>
+        /// Get trainingsheet student by phone
+        /// </summary>
+        [HttpGet("Trainingsheet")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTrainingsheetAsync(string phone)
+        {
+            return Ok(await _trainingsheetFacade.GetTrainingSheetByphoneAsync(phone));
+        }
 
     }
 }
