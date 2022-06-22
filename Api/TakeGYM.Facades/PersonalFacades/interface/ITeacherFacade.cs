@@ -15,5 +15,7 @@ namespace TakeGYM.Facades
 
         public Task<bool> UpdateAsync(Teacher teacher);
 
+        public Task<Teacher> FindByIdAsync(string teacherId);
+
     }
 }

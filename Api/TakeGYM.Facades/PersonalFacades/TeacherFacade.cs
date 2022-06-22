@@ -17,6 +17,11 @@ namespace TakeGYM.Facades
             _teacherRepository = teacherRepository;
         }
 
+        public async Task<Teacher> FindByIdAsync(string teacherId)
+        {
+            return await _teacherRepository.Find(t => t.Id.Equals(teacherId));
+        }
+
         public async Task<List<Teacher>> ListAllAsync()
         {
             return await _teacherRepository.ListAllAsync();

@@ -7,6 +7,7 @@ using TakeGYM.Facades.interfaces;
 using TakeGYM.Models.Structures;
 using TakeGYM.Models.Student;
 using TakeGYM.Models.Teacher;
+using System.IO;
 
 namespace TakeGYM.Controllers
 {
@@ -105,9 +106,12 @@ namespace TakeGYM.Controllers
         /// </summary>
         [HttpGet("trainingsheet")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTrainingsheetAsync(string id)
+        public async Task<FileStreamResult> GetTrainingsheetAsync(string id)
         {
-            return Ok(await _trainingsheetFacade.GetTrainingSheet(id));
+
+            var strem = System.IO.File.OpenRead("C:\\Users\\matheus.ferreira\\Desktop\\database\\Traininshet.txt");
+
+            return File(strem, "text/plain");
         }
 
     }

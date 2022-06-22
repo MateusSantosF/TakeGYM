@@ -44,6 +44,23 @@ namespace TakeGYM.Controllers
         }
 
         /// <summary>
+        ///  Get Teacher by Id
+        /// </summary>
+        [HttpGet("teacher")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> FindTeacherByIdAsync(string teacherId)
+        {
+            var result = await _teacherFacade.FindByIdAsync(teacherId);
+            if (result is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
         ///  Add Teacher in database
         /// </summary>
         /// <param name="teacher"></param>
