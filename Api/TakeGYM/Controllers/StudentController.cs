@@ -101,7 +101,7 @@ namespace TakeGYM.Controllers
         }
 
         /// <summary>
-        /// Get trainingsheet student by phone
+        /// Get trainingsheet student by id
         /// </summary>
         [HttpGet("trainingsheet")]
         [ProducesResponseType(StatusCodes.Status200OK)]
