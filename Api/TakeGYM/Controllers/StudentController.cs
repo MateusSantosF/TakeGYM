@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TakeGYM.Facades;
 using TakeGYM.Facades.interfaces;
+using TakeGYM.Models.Structures;
 using TakeGYM.Models.Student;
-
+using TakeGYM.Models.Teacher;
 
 namespace TakeGYM.Controllers
 {
@@ -69,9 +70,9 @@ namespace TakeGYM.Controllers
         [HttpPost("delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RemovemStudentAsync([FromBody][Required] Student student)
+        public async Task<IActionResult> RemovemStudentAsync(string studentId)
         {
-            var result = await _studentFacade.DeleteAsync(student);
+            var result = await _studentFacade.DeleteAsync(studentId);
             if (!result)
             {
                 return BadRequest(result);
@@ -82,11 +83,11 @@ namespace TakeGYM.Controllers
         /// <summary>
         /// Verify if student has trainingsheet by phone
         /// </summary>
-        [HttpGet("trainingsheet")]
+        [HttpGet("verify-trainingsheet")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> VerifyHasTrainsheetAsync(string phone)
+        public async Task<IActionResult> VerifyHasTrainsheetAsync(string id)
         {
-            return Ok(await _studentFacade.VerifyHasTrainingsheetAsync(phone));
+            return Ok(await _studentFacade.VerifyHasTrainingsheetAsync(id));
         }
 
         /// <summary>
@@ -94,19 +95,19 @@ namespace TakeGYM.Controllers
         /// </summary>
         [HttpGet("personal")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> VerifyHasPersonalAsync(string phone)
+        public async Task<IActionResult> VerifyHasPersonalAsync(string id)
         {
-            return Ok(await _studentFacade.VerifyHasPersonalAsync(phone));
+            return Ok(await _studentFacade.VerifyHasPersonalAsync(id));
         }
 
         /// <summary>
         /// Get trainingsheet student by phone
         /// </summary>
-        [HttpGet("Trainingsheet")]
+        [HttpGet("trainingsheet")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTrainingsheetAsync(string phone)
+        public async Task<IActionResult> GetTrainingsheetAsync(string id)
         {
-            return Ok(await _trainingsheetFacade.GetTrainingSheetByphoneAsync(phone));
+            return Ok(await _trainingsheetFacade.GetTrainingSheet(id));
         }
 
     }

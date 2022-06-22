@@ -10,8 +10,8 @@ using TakeGYM.Services.AppDbContext;
 namespace TakeGYM.Migrations
 {
     [DbContext(typeof(TakeGYMContext))]
-    [Migration("20220621190121_AddColumnsTrainingsheet")]
-    partial class AddColumnsTrainingsheet
+    [Migration("20220622172901_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,10 +23,8 @@ namespace TakeGYM.Migrations
 
             modelBuilder.Entity("TakeGYM.Models.Exercise.Exercise", b =>
                 {
-                    b.Property<long>("ExerciseID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BodyRegion")
                         .IsRequired()
@@ -40,21 +38,26 @@ namespace TakeGYM.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ExerciseID");
+                    b.HasKey("Id");
 
                     b.ToTable("Exercise");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.ExerciseTrainingSheet.ExerciseTraningsheet", b =>
                 {
-                    b.Property<long>("ExerciseID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ExerciseId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<long>("TrainingsheetID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TrainingsheetId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<long>("ExerciseID1")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ExerciseId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("NumbersIteration")
                         .HasColumnType("int");
@@ -62,30 +65,30 @@ namespace TakeGYM.Migrations
                     b.Property<int>("NumbersOfSet")
                         .HasColumnType("int");
 
-                    b.HasKey("ExerciseID", "TrainingsheetID");
+                    b.HasKey("ExerciseId", "TrainingsheetId");
 
-                    b.HasIndex("ExerciseID1");
+                    b.HasAlternateKey("Id");
+
+                    b.HasIndex("ExerciseId1");
 
                     b.ToTable("Exercise_Trainingsheet");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.PersonalAlert.PersonalAlert", b =>
                 {
-                    b.Property<long>("PersonalAlertID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<long>("PersonalID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("PersonalID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<long>("StudentID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("StudentID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TrainingSheetObjective")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PersonalAlertID");
+                    b.HasKey("Id");
 
                     b.HasIndex("PersonalID");
 
@@ -94,12 +97,10 @@ namespace TakeGYM.Migrations
                     b.ToTable("Alert");
                 });
 
-            modelBuilder.Entity("TakeGYM.Models.Structures.WorkSchedule", b =>
+            modelBuilder.Entity("TakeGYM.Models.Structures.Schedule", b =>
                 {
-                    b.Property<long>("WorkScheduleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
@@ -107,22 +108,20 @@ namespace TakeGYM.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("TeacherID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("WorkScheduleID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("TeacherID");
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Schedule");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.Student.Student", b =>
                 {
-                    b.Property<long>("StudentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CEP")
                         .HasColumnType("nvarchar(9)")
@@ -150,16 +149,21 @@ namespace TakeGYM.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PersonalScheduleId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("TeacherID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TeacherID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("StudentID");
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonalScheduleId");
 
                     b.HasIndex("Phone")
                         .IsUnique()
@@ -172,10 +176,8 @@ namespace TakeGYM.Migrations
 
             modelBuilder.Entity("TakeGYM.Models.Teacher.Teacher", b =>
                 {
-                    b.Property<long>("TeacherID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CPF")
                         .HasColumnType("nvarchar(14)")
@@ -193,7 +195,7 @@ namespace TakeGYM.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("TeacherID");
+                    b.HasKey("Id");
 
                     b.HasIndex("Phone")
                         .IsUnique()
@@ -204,27 +206,25 @@ namespace TakeGYM.Migrations
 
             modelBuilder.Entity("TakeGYM.Models.TrainingSheet.TrainingSheet", b =>
                 {
-                    b.Property<long>("TraningSheetID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("PersonalID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("PersonalID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("StudentID")
-                        .HasColumnType("bigint");
+                    b.Property<string>("StudentID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TrainingSheetObjective")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TraningSheetID");
+                    b.HasKey("Id");
 
                     b.HasIndex("PersonalID");
 
@@ -237,13 +237,13 @@ namespace TakeGYM.Migrations
                 {
                     b.HasOne("TakeGYM.Models.TrainingSheet.TrainingSheet", "Trainingsheet")
                         .WithMany("Exercises")
-                        .HasForeignKey("ExerciseID")
+                        .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TakeGYM.Models.Exercise.Exercise", "Exercise")
                         .WithMany("TrainingSheets")
-                        .HasForeignKey("ExerciseID1")
+                        .HasForeignKey("ExerciseId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -253,25 +253,26 @@ namespace TakeGYM.Migrations
                     b.HasOne("TakeGYM.Models.Teacher.Teacher", "Personal")
                         .WithMany("Alerts")
                         .HasForeignKey("PersonalID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("TakeGYM.Models.Student.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentID");
                 });
 
-            modelBuilder.Entity("TakeGYM.Models.Structures.WorkSchedule", b =>
+            modelBuilder.Entity("TakeGYM.Models.Structures.Schedule", b =>
                 {
                     b.HasOne("TakeGYM.Models.Teacher.Teacher", null)
                         .WithMany("WorkSchedules")
-                        .HasForeignKey("TeacherID");
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.Student.Student", b =>
                 {
+                    b.HasOne("TakeGYM.Models.Structures.Schedule", "PersonalSchedule")
+                        .WithMany()
+                        .HasForeignKey("PersonalScheduleId");
+
                     b.HasOne("TakeGYM.Models.Teacher.Teacher", "Teacher")
                         .WithMany("Students")
                         .HasForeignKey("TeacherID")
@@ -282,15 +283,11 @@ namespace TakeGYM.Migrations
                 {
                     b.HasOne("TakeGYM.Models.Teacher.Teacher", "Personal")
                         .WithMany()
-                        .HasForeignKey("PersonalID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonalID");
 
                     b.HasOne("TakeGYM.Models.Student.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentID");
                 });
 #pragma warning restore 612, 618
         }

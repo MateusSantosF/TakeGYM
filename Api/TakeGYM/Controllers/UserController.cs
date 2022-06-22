@@ -33,12 +33,13 @@ namespace TakeGYM.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("verify-registry")]
-        public async Task<IActionResult> VerifyRegistryByPhoneAsync(string phone)
+        public async Task<IActionResult> VerifyRegistryAsync(string id)
         {
-            var result = await _userFacade.VerifyRegisterByPhoneAsync(phone);
+            var result = await _userFacade.VerifyRegisterAsync(id);
             return Ok(result);
         }
 
+  
 
 
     }

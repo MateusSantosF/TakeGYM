@@ -68,9 +68,9 @@ namespace TakeGYM.Controllers
         [HttpPost("delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RemoveTeacherAsync([FromBody][Required] Teacher teacher)
+        public async Task<IActionResult> RemoveTeacherAsync(string teacherId)
         {
-            var result = await _teacherFacade.DeleteAsync(teacher);
+            var result = await _teacherFacade.DeleteAsync(teacherId);
             if (!result)
             {
                 return BadRequest(result);

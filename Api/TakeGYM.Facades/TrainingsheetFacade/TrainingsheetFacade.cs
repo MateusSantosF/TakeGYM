@@ -20,10 +20,10 @@ namespace TakeGYM.Facades
             _studentFacade = studentFacade;
         }
 
-        public async Task<string> GetTrainingSheetByphoneAsync(string phone)
+        public async Task<string> GetTrainingSheet(string id)
         {
-            var student = await _studentFacade.GetStudentByPhoneAsync(phone);
-            var result =  await _traininsheetRepository.FindBy(t => t.StudentID.Equals(student.StudentID));
+            var student = await _studentFacade.GetStudent(id);
+            var result =  await _traininsheetRepository.FindBy(t => t.StudentID.Equals(student.Id));
 
             return JsonConvert.SerializeObject(result, Formatting.Indented);
         }

@@ -2,15 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using TakeGYM.Models.Entity;
 using TakeGYM.Models.ExerciseTrainingSheet;
 
 namespace TakeGYM.Models.Exercise
 {
     [Table("Exercise")]
-    public class Exercise
+    public class Exercise:BaseEntity
     {
-        [Key]
-        public long ExerciseID { get; set; }
 
         [Required]
         public string Name { get; set; }

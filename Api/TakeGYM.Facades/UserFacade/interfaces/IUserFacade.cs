@@ -7,6 +7,6 @@ namespace TakeGYM.Facades
 {
     public interface IUserFacade
     {
-        public Task<string> VerifyRegisterByPhoneAsync(string phone);
+        public Task<string> VerifyRegisterAsync(string phone);
     }
 }

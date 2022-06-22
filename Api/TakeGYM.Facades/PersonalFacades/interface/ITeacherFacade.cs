@@ -11,7 +11,7 @@ namespace TakeGYM.Facades
 
         public Task<bool> InsertAsync(Teacher teacher);     
 
-        public Task<bool> DeleteAsync(Teacher teacher);
+        public Task<bool> DeleteAsync(string teacherId);
 
         public Task<bool> UpdateAsync(Teacher teacher);
 

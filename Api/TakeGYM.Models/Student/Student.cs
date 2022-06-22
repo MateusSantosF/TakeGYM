@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
+using TakeGYM.Models.Entity;
+using TakeGYM.Models.Structures;
 
 namespace TakeGYM.Models.Student
 {
     [Table("Student")]
-    public class Student
+    public class Student: BaseEntity
     {
-
-        [Key]
-        public long StudentID { get; set; }
-
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
 
         public string Phone { get; set; }
@@ -35,10 +34,13 @@ namespace TakeGYM.Models.Student
         public string Password { get; set; }
 
         [ForeignKey("TeacherID")]
-        public long? TeacherID { get; set; }
+        public string TeacherID { get; set; }
 
         public virtual Teacher.Teacher Teacher { get; set; }
 
         public bool HasPersonal { get; set; }
+
+        [Column("PersonalSchedule")]
+        public Schedule PersonalSchedule { get; set; }
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 using TakeGYM.Models.Student;
 using TakeGYM.Models.Teacher;
 using TakeGYM.Services.Repository.interfaces;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace TakeGYM.Facades
 {
@@ -23,10 +22,10 @@ namespace TakeGYM.Facades
             _teacherRepository = teacherRepository;
         }
 
-        public async Task<string> VerifyRegisterByPhoneAsync(string phone)
+        public async Task<string> VerifyRegisterAsync(string id)
         {
 
-            var students = await _studentRepository.FindBy(s => s.Phone.Equals(phone));
+            var students = await _studentRepository.FindBy(s => s.Id.Equals(id));
 
             if (students.Any())
             {
@@ -38,7 +37,7 @@ namespace TakeGYM.Facades
             }
 
 
-            var teachers = await _teacherRepository.FindBy(t => t.Phone.Equals(phone));
+            var teachers = await _teacherRepository.FindBy(t => t.Id.Equals(id));
 
             if (teachers.Any())
             {       

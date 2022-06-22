@@ -8,6 +8,6 @@ namespace TakeGYM.Facades.interfaces
     public interface ITrainingsheetFacade
     {
 
-        Task<string> GetTrainingSheetByphoneAsync(string phone);
+        Task<string> GetTrainingSheet(string id);
     }
 }

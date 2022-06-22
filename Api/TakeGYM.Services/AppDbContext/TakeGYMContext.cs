@@ -33,12 +33,17 @@ namespace TakeGYM.Services.AppDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ExerciseTraningsheet>()
-                .HasKey(bc => new { bc.ExerciseID, bc.TrainingsheetID });
+                .HasKey(et => new { et.Id });
 
             modelBuilder.Entity<ExerciseTraningsheet>()
                 .HasOne(bc => bc.Trainingsheet)
                 .WithMany(b => b.Exercises)
-                .HasForeignKey(bc => bc.ExerciseID);
+                .HasForeignKey(bc => bc.ExerciseId);
+
+            modelBuilder.Entity<ExerciseTraningsheet>()
+              .HasOne(bc => bc.Exercise)
+              .WithMany(b => b.TrainingSheets)
+              .HasForeignKey(bc => bc.TrainingsheetId);
 
 
             modelBuilder.Entity<Teacher>()

@@ -18,6 +18,6 @@ namespace TakeGYM.Services.Repository.interfaces
 
         Task<bool> UpdateAsync(T model);
 
-        Task<bool> DeleteAsync(T model);
+        Task<bool> DeleteAsync(string modelId);
     }
 }

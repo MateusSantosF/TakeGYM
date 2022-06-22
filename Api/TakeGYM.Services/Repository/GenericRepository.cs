@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
+using TakeGYM.Models.Entity;
 using TakeGYM.Services.AppDbContext;
 using TakeGYM.Services.Repository.interfaces;
 
 namespace TakeGYM.Services.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity 
     {
 
         private readonly TakeGYMContext _context;
@@ -28,7 +29,6 @@ namespace TakeGYM.Services.Repository
             return await _context.Set<T>().Where(predicate).ToListAsync();
         }
 
-     
 
         public async Task<List<T>> ListAllAsync()
         {
@@ -40,8 +40,9 @@ namespace TakeGYM.Services.Repository
             _context.Set<T>().Add(model);
             return await _context.SaveChangesAsync() > 0;
         }
-        public async Task<bool> DeleteAsync(T model)
+        public async Task<bool> DeleteAsync(string modelId)
         {
+            T model = await _context.Set<T>().Where(model => model.Id.Equals(modelId)).SingleOrDefaultAsync();
             _context.Set<T>().Remove(model);
             return await _context.SaveChangesAsync() > 0;
         }

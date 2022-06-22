@@ -2,13 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using TakeGYM.Models.Entity;
+
 namespace TakeGYM.Models.Structures
 {
     [Table("Schedule")]
-    public class WorkSchedule
+    public class Schedule: BaseEntity
     {
-        [Key]
-        public long WorkScheduleID { get; set; }
 
         [Required]
         public DateTime StartTime { get; set; }

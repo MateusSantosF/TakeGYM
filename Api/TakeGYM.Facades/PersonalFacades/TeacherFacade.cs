@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,12 +24,14 @@ namespace TakeGYM.Facades
 
         public async Task<bool> InsertAsync(Teacher teacher)
         {
+            teacher.Id = Guid.NewGuid().ToString();
+
             return await _teacherRepository.InsertAsync(teacher);
         }
 
-        public async Task<bool> DeleteAsync(Teacher teacher)
+        public async Task<bool> DeleteAsync(string teacherId)
         {
-            return await _teacherRepository.DeleteAsync(teacher);
+            return await _teacherRepository.DeleteAsync(teacherId);
         }
 
         public async Task<bool> UpdateAsync(Teacher teacher)
