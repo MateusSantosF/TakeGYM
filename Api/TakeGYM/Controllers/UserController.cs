@@ -29,13 +29,18 @@ namespace TakeGYM.Controllers
         }
 
         /// <summary>
-        ///  Verify if user contains register in database by phone number
+        ///  Verify if user contains register in database by CPF
         /// </summary>
         /// <returns></returns>
         [HttpGet("verify-registry")]
-        public async Task<IActionResult> VerifyRegistryAsync(string id)
+        public async Task<IActionResult> VerifyRegistryAsync(string cpf)
         {
-            var result = await _userFacade.VerifyRegisterAsync(id);
+            var result = await _userFacade.VerifyRegisterAsync(cpf);
+            if (result.Equals(string.Empty))
+            {
+                return NotFound();
+            }
+
             return Ok(result);
         }
 

@@ -24,6 +24,6 @@ namespace TakeGYM.Facades
         public Task<string> VerifyHasTrainingsheetAsync(string phone);
 
         public Task<bool> SignPersonalAsync(Teacher teacher, Schedule schedule, string phone);
-
+        public Task<string> GetCepInfoAsync(string cep);
     }
 }

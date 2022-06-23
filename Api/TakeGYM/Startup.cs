@@ -110,7 +110,8 @@ namespace TakeGYM
                     c.SwaggerEndpoint(SWAGGER_FILE_PATH, Constants.PROJECT_NAME + API_VERSION);
                 });
 
-            app.UseHttpsRedirection()
+            app
+               .UseHttpsRedirection()
                .UseAuthentication()
                .UseRouting()
                .UseHttpMetrics()

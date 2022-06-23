@@ -22,10 +22,10 @@ namespace TakeGYM.Facades
             _teacherRepository = teacherRepository;
         }
 
-        public async Task<string> VerifyRegisterAsync(string id)
+        public async Task<string> VerifyRegisterAsync(string cpf)
         {
 
-            var students = await _studentRepository.FindBy(s => s.Id.Equals(id));
+            var students = await _studentRepository.FindBy(student => student.CPF.Equals(cpf));
 
             if (students.Any())
             {
@@ -37,7 +37,7 @@ namespace TakeGYM.Facades
             }
 
 
-            var teachers = await _teacherRepository.FindBy(t => t.Id.Equals(id));
+            var teachers = await _teacherRepository.FindBy(teacher => teacher.CPF.Equals(cpf));
 
             if (teachers.Any())
             {       

@@ -10,6 +10,8 @@ using TakeGYM.Services.Repository.interfaces;
 using Newtonsoft.Json;
 using TakeGYM.Models.Structures;
 using TakeGYM.Models.Teacher;
+using System.Net.Http;
+using TakeGYM.Models;
 
 namespace TakeGYM.Facades
 {
@@ -86,6 +88,17 @@ namespace TakeGYM.Facades
             student.PersonalSchedule = schedule;
 
             return await _studentRepository.UpdateAsync(student);
+        }
+
+        public async Task<string> GetCepInfoAsync(string cep)
+        {
+
+            HttpClient client = new HttpClient();
+
+            var response = await client.GetAsync($"{Constants.HTTPS}viacep.com.br/ws/{cep}/json/");
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            return responseBody;
         }
     }
 }

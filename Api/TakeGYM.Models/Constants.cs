@@ -7,5 +7,8 @@
         public const string BLIP_BOT_KEY = "X-Bot-Key";
         public const string XML_EXTENSION = ".xml";
         public const string PROJECT_NAME = "TakeGYM";
+
+
+        public const string HTTPS = "https://";
     }
 }

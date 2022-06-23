@@ -92,6 +92,16 @@ namespace TakeGYM.Controllers
         }
 
         /// <summary>
+        /// Get Bairro,Cidade e Rua by CEP
+        /// </summary>
+        [HttpGet("cep")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetCepInfoAsync(string cep)
+        {
+            return Ok(await _studentFacade.GetCepInfoAsync(cep));
+        }
+
+        /// <summary>
         /// Verify if student has personal by phone
         /// </summary>
         [HttpGet("personal")]
