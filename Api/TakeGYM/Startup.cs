@@ -29,6 +29,7 @@ using Take.Api.Security.Heimdall.Extensions;
 using Prometheus;
 using TakeGYM.Services.AppDbContext;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace TakeGYM
 {
@@ -57,6 +58,7 @@ namespace TakeGYM
             // Adds BLiP's Json Serializer to use on BLiP's Builder
             services.AddMvc().AddNewtonsoftJson(options =>
             {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 foreach (var settingsConverter in JsonNetSerializer.Settings.Converters)
                 {
                     options.SerializerSettings.Converters.Add(settingsConverter);

@@ -44,9 +44,26 @@ namespace TakeGYM.Controllers
         }
 
         /// <summary>
+        /// List all teacher are personal in database
+        /// </summary>
+        [HttpGet("list-personal")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ListAllPersonalAsync()
+        {
+            var result = await _teacherFacade.ListAllPersonalAsync();
+            if (result is null)
+            {
+                return NotFound("Not find personals in database");
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
         ///  Get Teacher by Id
         /// </summary>
-        [HttpGet("teacher")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> FindTeacherByIdAsync(string teacherId)

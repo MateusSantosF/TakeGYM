@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TakeGYM.Services.AppDbContext;
 
 namespace TakeGYM.Migrations
 {
     [DbContext(typeof(TakeGYMContext))]
-    partial class TakeGYMContextModelSnapshot : ModelSnapshot
+    [Migration("20220627125908_InverseProperties")]
+    partial class InverseProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,7 +150,7 @@ namespace TakeGYM.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeacherId")
+                    b.Property<string>("TeacherID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -159,7 +161,7 @@ namespace TakeGYM.Migrations
                         .IsUnique()
                         .HasFilter("[Phone] IS NOT NULL");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("TeacherID");
 
                     b.ToTable("Student");
                 });
@@ -261,7 +263,7 @@ namespace TakeGYM.Migrations
 
                     b.HasOne("TakeGYM.Models.Teacher.Teacher", "Teacher")
                         .WithMany("Students")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherID");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.TrainingSheet.TrainingSheet", b =>

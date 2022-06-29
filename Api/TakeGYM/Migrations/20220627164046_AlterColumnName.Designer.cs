@@ -10,8 +10,8 @@ using TakeGYM.Services.AppDbContext;
 namespace TakeGYM.Migrations
 {
     [DbContext(typeof(TakeGYMContext))]
-    [Migration("20220622173820_FixedModelCreating")]
-    partial class FixedModelCreating
+    [Migration("20220627164046_AlterColumnName")]
+    partial class AlterColumnName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,9 +51,6 @@ namespace TakeGYM.Migrations
                     b.Property<string>("ExerciseId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ExerciseId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("NumbersIteration")
                         .HasColumnType("int");
 
@@ -61,13 +58,13 @@ namespace TakeGYM.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TrainingsheetId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExerciseId");
 
-                    b.HasIndex("ExerciseId1");
+                    b.HasIndex("TrainingsheetId");
 
                     b.ToTable("Exercise_Trainingsheet");
                 });
@@ -144,9 +141,6 @@ namespace TakeGYM.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PersonalScheduleId")
                         .HasColumnType("nvarchar(450)");
 
@@ -156,7 +150,7 @@ namespace TakeGYM.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeacherID")
+                    b.Property<string>("TeacherId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -167,7 +161,7 @@ namespace TakeGYM.Migrations
                         .IsUnique()
                         .HasFilter("[Phone] IS NOT NULL");
 
-                    b.HasIndex("TeacherID");
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Student");
                 });
@@ -239,7 +233,7 @@ namespace TakeGYM.Migrations
 
                     b.HasOne("TakeGYM.Models.Exercise.Exercise", "Exercise")
                         .WithMany("TrainingSheets")
-                        .HasForeignKey("ExerciseId1");
+                        .HasForeignKey("TrainingsheetId");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.PersonalAlert.PersonalAlert", b =>
@@ -269,8 +263,7 @@ namespace TakeGYM.Migrations
 
                     b.HasOne("TakeGYM.Models.Teacher.Teacher", "Teacher")
                         .WithMany("Students")
-                        .HasForeignKey("TeacherID")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.TrainingSheet.TrainingSheet", b =>

@@ -10,7 +10,7 @@ using TakeGYM.Services.AppDbContext;
 namespace TakeGYM.Migrations
 {
     [DbContext(typeof(TakeGYMContext))]
-    [Migration("20220622172901_InitialMigration")]
+    [Migration("20220624133023_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,18 +45,10 @@ namespace TakeGYM.Migrations
 
             modelBuilder.Entity("TakeGYM.Models.ExerciseTrainingSheet.ExerciseTraningsheet", b =>
                 {
-                    b.Property<string>("ExerciseId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TrainingsheetId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ExerciseId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Id")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ExerciseId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("NumbersIteration")
@@ -65,11 +57,14 @@ namespace TakeGYM.Migrations
                     b.Property<int>("NumbersOfSet")
                         .HasColumnType("int");
 
-                    b.HasKey("ExerciseId", "TrainingsheetId");
+                    b.Property<string>("TrainingsheetId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasAlternateKey("Id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ExerciseId1");
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("TrainingsheetId");
 
                     b.ToTable("Exercise_Trainingsheet");
                 });
@@ -144,9 +139,6 @@ namespace TakeGYM.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PersonalScheduleId")
@@ -237,15 +229,11 @@ namespace TakeGYM.Migrations
                 {
                     b.HasOne("TakeGYM.Models.TrainingSheet.TrainingSheet", "Trainingsheet")
                         .WithMany("Exercises")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExerciseId");
 
                     b.HasOne("TakeGYM.Models.Exercise.Exercise", "Exercise")
                         .WithMany("TrainingSheets")
-                        .HasForeignKey("ExerciseId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TrainingsheetId");
                 });
 
             modelBuilder.Entity("TakeGYM.Models.PersonalAlert.PersonalAlert", b =>

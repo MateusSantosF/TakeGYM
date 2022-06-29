@@ -9,6 +9,8 @@ namespace TakeGYM.Facades
     {
         public Task<List<Teacher>> ListAllAsync();
 
+        public Task<List<Teacher>> ListAllPersonalAsync();
+
         public Task<bool> InsertAsync(Teacher teacher);     
 
         public Task<bool> DeleteAsync(string teacherId);

@@ -10,8 +10,8 @@ using TakeGYM.Services.AppDbContext;
 namespace TakeGYM.Migrations
 {
     [DbContext(typeof(TakeGYMContext))]
-    [Migration("20220622174213_FixedModelCreatingTwo")]
-    partial class FixedModelCreatingTwo
+    [Migration("20220624145422_RemoveMinLenghtCPFTeacher")]
+    partial class RemoveMinLenghtCPFTeacher
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,9 +139,6 @@ namespace TakeGYM.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PersonalScheduleId")

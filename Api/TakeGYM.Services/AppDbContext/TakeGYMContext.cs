@@ -46,9 +46,6 @@ namespace TakeGYM.Services.AppDbContext
               .HasForeignKey(bc => bc.TrainingsheetId);
 
 
-            modelBuilder.Entity<Teacher>()
-                    .HasMany(s => s.Students)
-                    .WithOne(s => s.Teacher).OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Student>().HasIndex(s => s.Phone).IsUnique();
             modelBuilder.Entity<Teacher>().HasIndex(t => t.Phone).IsUnique();

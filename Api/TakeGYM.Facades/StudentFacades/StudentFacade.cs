@@ -12,18 +12,23 @@ using TakeGYM.Models.Structures;
 using TakeGYM.Models.Teacher;
 using System.Net.Http;
 using TakeGYM.Models;
+using System.Linq;
 
 namespace TakeGYM.Facades
 {
     public class StudentFacade :IStudentFacade{
 
         private readonly IGenericRepository<Student> _studentRepository;
+        private readonly ITeacherFacade _teacherFacade;
         private readonly IGenericRepository<TrainingSheet> _trainingsheetRepository;
 
-        public StudentFacade(IGenericRepository<Student> studentRepository, IGenericRepository<TrainingSheet> trainingsheetRepository)
+        public StudentFacade(IGenericRepository<Student> studentRepository, 
+            IGenericRepository<TrainingSheet> trainingsheetRepository,
+            ITeacherFacade teacherFacade)
         {
             _studentRepository = studentRepository;
             _trainingsheetRepository = trainingsheetRepository;
+            _teacherFacade = teacherFacade;
         }
 
         public async Task<bool> DeleteAsync(string studentId)
@@ -74,20 +79,30 @@ namespace TakeGYM.Facades
             return JsonConvert.SerializeObject(trainingSheet, Formatting.Indented);
         }
 
-        public async Task<bool> SignPersonalAsync(Teacher teacher, Schedule schedule, string phone)
+        public async Task<Student> SignPersonalAsync(string studentId,string teacherId)
         {
-            var student = await _studentRepository.Find(s => s.Phone.Equals(phone));
+            var student = await _studentRepository.Find(s => s.Id.Equals(studentId));
+            var teacher = await _teacherFacade.FindByIdAsync(teacherId);
 
-            if(student is null)
+            if(student is null || teacher is null)
             {
-                return false;
+                return null;
             }
 
+            //if (teacher.Students is null)
+            //{
+            //    teacher.Students = new List<Student>();
+            //}
+
+            //teacher.Students.Add(student);
             student.Teacher = teacher;
             student.HasPersonal = true;
-            student.PersonalSchedule = schedule;
+            student.TeacherId = teacher.Id;
 
-            return await _studentRepository.UpdateAsync(student);
+            //await _teacherFacade.UpdateAsync(teacher);
+            var result = await _studentRepository.UpdateAsync(student);
+
+            return result ? student: null;
         }
 
         public async Task<string> GetCepInfoAsync(string cep)
@@ -99,6 +114,22 @@ namespace TakeGYM.Facades
             string responseBody = await response.Content.ReadAsStringAsync();
 
             return responseBody;
+        }
+
+        public async Task<bool> CancelPersonalAsync(string studentId)
+        {
+
+            var student = await _studentRepository.Find(s => s.Id.Equals(studentId));
+
+            if(student is null){
+                return false;
+            }
+
+            student.HasPersonal = false;
+            student.TeacherId = null;
+            student.Teacher = null;
+
+            return await _studentRepository.UpdateAsync(student);
         }
     }
 }

@@ -20,10 +20,10 @@ namespace TakeGYM.Models.Teacher
 
         public bool IsPersonal { get; set; }
 
-        [MinLength(14, ErrorMessage = "CPF LENGTH OUT OF BOUNDS")]
         [MaxLength(14, ErrorMessage = "CPF LENGTH OUT OF BOUNDS")]
         public string CPF { get; set; }
 
+        [InverseProperty("Teacher")]
         public virtual  List<Student.Student> Students { get; set; }
       
         public List<Schedule> WorkSchedules { get; set; }

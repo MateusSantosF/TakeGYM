@@ -9,7 +9,7 @@ namespace TakeGYM.Facades
 {
     public interface IStudentFacade
     {
-        Task<Student> GetStudent(string phone);
+        Task<Student> GetStudent(string id);
 
         public Task<List<Student>> ListAllAsync();
 
@@ -19,11 +19,14 @@ namespace TakeGYM.Facades
 
         public Task<bool> UpdateAsync(Student student);
 
+        public Task<bool> CancelPersonalAsync(string studentId);
+
         public Task<bool> VerifyHasPersonalAsync(string phone);
 
         public Task<string> VerifyHasTrainingsheetAsync(string phone);
 
-        public Task<bool> SignPersonalAsync(Teacher teacher, Schedule schedule, string phone);
+        public Task<Student> SignPersonalAsync(string studentId, string teacherId);
+
         public Task<string> GetCepInfoAsync(string cep);
     }
 }

@@ -4,4 +4,10 @@
     <ProjectGuid>{46EC828B-835E-4475-B0ED-F1EFC0DBCB51}</ProjectGuid>
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="teste\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
 </Project>

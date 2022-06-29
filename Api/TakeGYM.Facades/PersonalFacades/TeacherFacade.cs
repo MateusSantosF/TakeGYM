@@ -27,6 +27,12 @@ namespace TakeGYM.Facades
             return await _teacherRepository.ListAllAsync();
         }
 
+        public async Task<List<Teacher>> ListAllPersonalAsync()
+        {
+            return await _teacherRepository.FindByAsNoTracking( t => t.IsPersonal);
+        }
+
+
         public async Task<bool> InsertAsync(Teacher teacher)
         {
             teacher.Id = Guid.NewGuid().ToString();

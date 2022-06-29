@@ -49,6 +49,23 @@ namespace TakeGYM.Controllers
         }
 
         /// <summary>
+        /// Get student by Id in database
+        /// </summary>
+        [HttpGet("teste")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetStudentByIdAsync(string id)
+        {
+            var result = await _studentFacade.GetStudent(id);
+            if (result is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
         ///  Add students in database
         /// </summary>
         [HttpPost("insert")]
@@ -71,7 +88,7 @@ namespace TakeGYM.Controllers
         [HttpPost("delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RemovemStudentAsync(string studentId)
+        public async Task<IActionResult> RemoveStudentAsync(string studentId)
         {
             var result = await _studentFacade.DeleteAsync(studentId);
             if (!result)
@@ -92,7 +109,7 @@ namespace TakeGYM.Controllers
         }
 
         /// <summary>
-        /// Get Bairro,Cidade e Rua by CEP
+        /// Get district,city and street by CEP
         /// </summary>
         [HttpGet("cep")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -123,6 +140,43 @@ namespace TakeGYM.Controllers
 
             return File(strem, "text/plain");
         }
+
+
+        /// <summary>
+        /// Cancel current personal for student
+        /// </summary>
+        [HttpPost("cancel-personal")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> CancelPersonalAsync(string studentId)
+        {
+            var result = await _studentFacade.CancelPersonalAsync(studentId);
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// sigin current personal for student
+        /// </summary>
+        [HttpPost("sigin-personal")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> SignInPersonalAsync(string studentId, string teacherId)
+        {
+            var result = await _studentFacade.SignPersonalAsync(studentId, teacherId);
+
+            if (result is null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
 
     }
 }

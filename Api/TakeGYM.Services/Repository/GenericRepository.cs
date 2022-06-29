@@ -23,10 +23,14 @@ namespace TakeGYM.Services.Repository
         }
 
 
-
         public async Task<List<T>> FindBy(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().Where(predicate).ToListAsync();
+        }
+
+        public async Task<List<T>> FindByAsNoTracking(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
         }
 
 

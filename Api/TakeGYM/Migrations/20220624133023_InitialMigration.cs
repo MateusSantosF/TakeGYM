@@ -70,7 +70,6 @@ namespace TakeGYM.Migrations
                     Street = table.Column<string>(nullable: true),
                     District = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
                     TeacherID = table.Column<string>(nullable: true),
                     HasPersonal = table.Column<bool>(nullable: false),
                     PersonalScheduleId = table.Column<string>(nullable: true)
@@ -148,29 +147,27 @@ namespace TakeGYM.Migrations
                 name: "Exercise_Trainingsheet",
                 columns: table => new
                 {
-                    ExerciseId = table.Column<string>(nullable: false),
-                    TrainingsheetId = table.Column<string>(nullable: false),
                     Id = table.Column<string>(nullable: false),
                     NumbersOfSet = table.Column<int>(nullable: false),
                     NumbersIteration = table.Column<int>(nullable: false),
-                    ExerciseId1 = table.Column<string>(nullable: false)
+                    ExerciseId = table.Column<string>(nullable: true),
+                    TrainingsheetId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exercise_Trainingsheet", x => new { x.ExerciseId, x.TrainingsheetId });
-                    table.UniqueConstraint("AK_Exercise_Trainingsheet_Id", x => x.Id);
+                    table.PrimaryKey("PK_Exercise_Trainingsheet", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Exercise_Trainingsheet_TrainingSheet_ExerciseId",
                         column: x => x.ExerciseId,
                         principalTable: "TrainingSheet",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Exercise_Trainingsheet_Exercise_ExerciseId1",
-                        column: x => x.ExerciseId1,
+                        name: "FK_Exercise_Trainingsheet_Exercise_TrainingsheetId",
+                        column: x => x.TrainingsheetId,
                         principalTable: "Exercise",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -184,9 +181,14 @@ namespace TakeGYM.Migrations
                 column: "StudentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exercise_Trainingsheet_ExerciseId1",
+                name: "IX_Exercise_Trainingsheet_ExerciseId",
                 table: "Exercise_Trainingsheet",
-                column: "ExerciseId1");
+                column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exercise_Trainingsheet_TrainingsheetId",
+                table: "Exercise_Trainingsheet",
+                column: "TrainingsheetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedule_TeacherId",
@@ -198,12 +200,6 @@ namespace TakeGYM.Migrations
                 table: "Student",
                 column: "PersonalScheduleId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Student_Phone",
-                table: "Student",
-                column: "Phone",
-                unique: true,
-                filter: "[Phone] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Student_TeacherID",
